@@ -1,6 +1,6 @@
 {
   "name": "pointer-props",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "JavaScript object manipulation (get/set/del) using JSON Pointer (RFC6901) paths.",
   "type": "module",
   "module": "dist/index.mjs",
