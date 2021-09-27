@@ -16,7 +16,8 @@
   },
   "scripts": {
     "test": "uvu src",
-    "build": "bundt src/index.js"
+    "build": "bundt src/index.js",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
