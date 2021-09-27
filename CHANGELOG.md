@@ -22,10 +22,15 @@ Change categories are:
 ### Removed
 ### Security
 
+## [1.0.0] - 2021-09-27
+
+### Added
+- Add the functions and TS types, publish to npm.
+
 ## [0.0.0] - 2021-09-27
 
 ### Added
 - Created the base project.
 
 [Unreleased]: https://github.com/saibotsivad/pointer-props/compare/v0.0.0...HEAD
-[0.0.1]: https://github.com/saibotsivad/pointer-props/compare/v0.0.0...v0.0.1
+[1.0.0]: https://github.com/saibotsivad/pointer-props/compare/v0.0.0...v1.0.0
