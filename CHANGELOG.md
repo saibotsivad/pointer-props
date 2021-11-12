@@ -1,4 +1,4 @@
-# changelog
+# Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -22,21 +22,23 @@ Change categories are:
 ### Removed
 ### Security
 
-## [1.0.1] - 2021-09-27
+## [1.1.0] - 2021-11-12
+### Added
+- Support to resolve JSON Reference paths.
 
+## [1.0.1] - 2021-09-27
 ### Fixed
 - Build before publishing to npm.
 
 ## [1.0.0] - 2021-09-27
-
 ### Added
 - Add the functions and TS types, publish to npm.
 
 ## [0.0.0] - 2021-09-27
-
 ### Added
 - Created the base project.
 
 [Unreleased]: https://github.com/saibotsivad/pointer-props/compare/v0.0.0...HEAD
+[1.1.0]: https://github.com/saibotsivad/pointer-props/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/saibotsivad/pointer-props/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/saibotsivad/pointer-props/compare/v0.0.0...v1.0.0

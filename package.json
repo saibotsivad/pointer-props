@@ -1,7 +1,7 @@
 {
   "name": "pointer-props",
   "version": "1.0.1",
-  "description": "JavaScript object manipulation (get/set/del) using JSON Pointer (RFC6901) paths.",
+  "description": "JavaScript object manipulation (get/set/del) using JSON Pointer (RFC6901) and JSON Reference paths.",
   "type": "module",
   "module": "dist/index.mjs",
   "unpkg": "dist/index.min.js",
@@ -27,8 +27,16 @@
     "get",
     "set",
     "del",
+    "resolve",
+    "ref",
+    "$ref",
     "rfc6901",
-    "json pointer"
+    "json pointer",
+    "jsonpointer",
+    "json-pointer",
+    "json reference",
+    "jsonreference",
+    "json-reference"
   ],
   "author": {
     "name": "Tobias Davis",

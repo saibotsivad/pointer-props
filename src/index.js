@@ -1,6 +1,20 @@
 import { dset } from 'dset'
 import dlv from 'dlv'
 
+class InfiniteReference extends Error {
+	constructor(props) {
+		super(props)
+		this.name = 'InfiniteReference'
+	}
+}
+
+class ExternalReference extends Error {
+	constructor(props) {
+		super(props)
+		this.name = 'ExternalReference'
+	}
+}
+
 /*
 
 Note on escaping order, from RFC6901:
@@ -21,7 +35,8 @@ Note on escaping order, from RFC6901:
  * @type {import("../index").toTokens}
  */
 export const toTokens = function (path) {
-	[ , ...path ] = path.split('/')
+	if (!path.startsWith('/') && !path.startsWith('#/')) throw new ExternalReference(`Non-relative JSON Pointers are not supported: ${path}`)
+	;[ , ...path ] = path.split('/')
 	let segments = []
 	for (let segment of path) {
 		segments.push(segment.replaceAll('~1', '/').replaceAll('~0', '~'))
@@ -76,4 +91,29 @@ export function del(obj, path) {
 	else if (item) delete item[last]
 	dset(obj, segments, item)
 	return obj
+}
+
+/**
+ * Resolve JSON Reference links to the final absolute array of accessor tokens.
+ * @type {import("../index").resolve}
+ */
+export function resolve(obj, path) {
+	const traversed = new Set()
+	const _resolve = keys => {
+		let actualKeys = []
+		let node = obj
+		for (let index = 0; index < keys.length; index++) {
+			node = obj[keys[index]]
+			if (node && node.$ref) {
+				if (traversed.has(node.$ref)) throw new InfiniteReference(`Found a cycle of $ref names on: ${node.$ref}`)
+				traversed.add(node.$ref)
+				actualKeys.push(..._resolve(toTokens(node.$ref)))
+				return actualKeys
+			} else {
+				actualKeys.push(keys[index])
+			}
+		}
+		return actualKeys
+	}
+	return _resolve(makeConsistent(path))
 }
