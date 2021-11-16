@@ -107,34 +107,64 @@ test('del', () => {
 	)
 })
 
-test('getRef', () => {
+test('resolve', () => {
 	assert.equal(
 		resolve({
 			foo: {
 				$ref: '#/bar',
 			},
 			bar: 'baz',
-		}, '#/foo/bar'),
+		}, '#/foo'),
 		[ 'bar' ],
 		'single $ref deep',
 	)
 	assert.equal(
 		resolve({
-			foo: { $ref: '#/bar' },
+			foo: {
+				$ref: '#/bar'
+			},
 			bar: 'baz',
-		}, [ 'foo', 'bar' ]),
+		}, [ 'foo' ]),
 		[ 'bar' ],
-		'single $ref deep',
+		'single $ref deep with array accessor',
+	)
+	assert.equal(
+		resolve({
+			foo: {
+				bar: {
+					$ref: '#/fizz'
+				}
+			},
+			fizz: {
+				buzz: 'should resolve here'
+			}
+		}, '#/foo/bar/buzz'),
+		[ 'fizz', 'buzz' ],
+		'deeper $ref chain'
 	)
 	assert.equal(
 		resolve({
 			'f/o/o': {
 				$ref: '#/b~0a~0r',
 			},
-			'b~a~r': 'baz',
-		}, '#/f~1o~1o/b~0a~0r'),
-		[ 'b~a~r' ],
+			'b~a~r': {
+				'b~a/z': 'buzz'
+			},
+		}, '#/f~1o~1o/b~0a~1z'),
+		[ 'b~a~r', 'b~a/z' ],
 		'deep access with encoded characters',
+	)
+	assert.equal(
+		resolve({
+			'f/o/o': {
+				$ref: '#/b~0a~0r',
+			},
+			'b~a~r': {
+				'b~a/z': 'buzz'
+			},
+		}, [ 'f/o/o', 'b~a/z' ]),
+		[ 'b~a~r', 'b~a/z' ],
+		'deep access with non-encoded characters is possible with an array',
 	)
 	assert.equal(
 		resolve({
@@ -150,7 +180,7 @@ test('getRef', () => {
 			buzz: {
 				somePropertyName: 3,
 			},
-		}, '#/foo/bar'),
+		}, '#/foo'),
 		[ 'buzz' ],
 		'long $ref chain',
 	)

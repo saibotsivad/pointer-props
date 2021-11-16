@@ -98,22 +98,19 @@ export function del(obj, path) {
  * @type {import("../index").resolve}
  */
 export function resolve(obj, path) {
-	const traversed = new Set()
+	const traversed = Object.create(null)
 	const _resolve = keys => {
-		let actualKeys = []
-		let node = obj
+		let tempKeys = [ ...keys ]
+		let tempObj = obj
 		for (let index = 0; index < keys.length; index++) {
-			node = obj[keys[index]]
-			if (node && node.$ref) {
-				if (traversed.has(node.$ref)) throw new InfiniteReference(`Found a cycle of $ref names on: ${node.$ref}`)
-				traversed.add(node.$ref)
-				actualKeys.push(..._resolve(toTokens(node.$ref)))
-				return actualKeys
-			} else {
-				actualKeys.push(keys[index])
+			tempObj = tempObj[tempKeys.shift()]
+			if (tempObj && tempObj.$ref) {
+				if (traversed[tempObj.$ref]) throw new InfiniteReference(`Found a cycle of $ref names on: ${tempObj.$ref}`)
+				traversed[tempObj.$ref] = true
+				return _resolve([ ...toTokens(tempObj.$ref), ...tempKeys ])
 			}
 		}
-		return actualKeys
+		return keys
 	}
 	return _resolve(makeConsistent(path))
 }
