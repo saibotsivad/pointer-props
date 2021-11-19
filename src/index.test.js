@@ -121,7 +121,7 @@ test('resolve', () => {
 	assert.equal(
 		resolve({
 			foo: {
-				$ref: '#/bar'
+				$ref: '#/bar',
 			},
 			bar: 'baz',
 		}, [ 'foo' ]),
@@ -132,15 +132,15 @@ test('resolve', () => {
 		resolve({
 			foo: {
 				bar: {
-					$ref: '#/fizz'
-				}
+					$ref: '#/fizz',
+				},
 			},
 			fizz: {
-				buzz: 'should resolve here'
-			}
+				buzz: 'should resolve here',
+			},
 		}, '#/foo/bar/buzz'),
 		[ 'fizz', 'buzz' ],
-		'deeper $ref chain'
+		'deeper $ref chain',
 	)
 	assert.equal(
 		resolve({
@@ -148,7 +148,7 @@ test('resolve', () => {
 				$ref: '#/b~0a~0r',
 			},
 			'b~a~r': {
-				'b~a/z': 'buzz'
+				'b~a/z': 'buzz',
 			},
 		}, '#/f~1o~1o/b~0a~1z'),
 		[ 'b~a~r', 'b~a/z' ],
@@ -160,7 +160,7 @@ test('resolve', () => {
 				$ref: '#/b~0a~0r',
 			},
 			'b~a~r': {
-				'b~a/z': 'buzz'
+				'b~a/z': 'buzz',
 			},
 		}, [ 'f/o/o', 'b~a/z' ]),
 		[ 'b~a~r', 'b~a/z' ],
@@ -184,6 +184,11 @@ test('resolve', () => {
 		[ 'buzz' ],
 		'long $ref chain',
 	)
+	assert.equal(
+		resolve({}, [ 'foo', 'bar', 'fizz' ]),
+		null,
+		'if the path does not exist',
+	)
 	assert.throws(
 		() => resolve({
 			foo: {
@@ -194,7 +199,7 @@ test('resolve', () => {
 			},
 		}, [ 'foo' ]),
 		err => err.name === 'InfiniteReference',
-		'it should detect infinite cycles and throw'
+		'it should detect infinite cycles and throw',
 	)
 	assert.throws(
 		() => resolve({
@@ -203,7 +208,7 @@ test('resolve', () => {
 			},
 		}, [ 'foo' ]),
 		err => err.name === 'ExternalReference',
-		'external pointers are not supported'
+		'external pointers are not supported',
 	)
 })
 

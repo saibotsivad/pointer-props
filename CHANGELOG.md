@@ -22,6 +22,10 @@ Change categories are:
 ### Removed
 ### Security
 
+## [1.1.3] - 2021-11-19
+### Fixed
+- Instead of throwing a cryptic exception, resolving unresolvable paths will return `null`.
+
 ## [1.1.1-1.1.2] - 2021-11-16
 ### Fixed
 - JSON Reference resolution implementation was incorrect. It now works, and there are a few more tests.
@@ -43,6 +47,7 @@ Change categories are:
 - Created the base project.
 
 [Unreleased]: https://github.com/saibotsivad/pointer-props/compare/v0.0.0...HEAD
+[1.1.3]: https://github.com/saibotsivad/pointer-props/compare/v1.1.2...v1.1.3
 [1.1.1-1.1.2]: https://github.com/saibotsivad/pointer-props/compare/v1.1.0...v1.1.2
 [1.1.0]: https://github.com/saibotsivad/pointer-props/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/saibotsivad/pointer-props/compare/v1.0.0...v1.0.1

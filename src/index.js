@@ -103,6 +103,7 @@ export function resolve(obj, path) {
 		let tempKeys = [ ...keys ]
 		let tempObj = obj
 		for (let index = 0; index < keys.length; index++) {
+			if (tempObj === undefined) return null
 			tempObj = tempObj[tempKeys.shift()]
 			if (tempObj && tempObj.$ref) {
 				if (traversed[tempObj.$ref]) throw new InfiniteReference(`Found a cycle of $ref names on: ${tempObj.$ref}`)
