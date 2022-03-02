@@ -22,6 +22,10 @@ Change categories are:
 ### Removed
 ### Security
 
+## [1.1.4](https://github.com/saibotsivad/pointer-props/compare/v1.1.3...v1.1.4) - 2022-03-02
+### Fixed
+- Set the CommonJS filename for bundlers to introspect easier.
+
 ## [1.1.3] - 2021-11-19
 ### Fixed
 - Instead of throwing a cryptic exception, resolving unresolvable paths will return `null`.

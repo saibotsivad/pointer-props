@@ -5,12 +5,12 @@
   "type": "module",
   "module": "dist/index.mjs",
   "unpkg": "dist/index.min.js",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "types": "index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
